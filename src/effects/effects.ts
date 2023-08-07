@@ -1,4 +1,4 @@
-import { Effect } from "./effect.js";
+import { Effect } from "./effect/effect.js";
 import { Set } from "./set/set.js";
 import { Transition } from "./transition/transition.js";
 

@@ -1,5 +1,5 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { Effect, EffectProperties } from "../effect.js";
+import { Effect, EffectProperties } from "../effect/effect.js";
 import { dumbDeepCopy, setPropertyValue } from "../../utils/utils.js";
 import { EffectType } from "../../utils/enums.js";
 

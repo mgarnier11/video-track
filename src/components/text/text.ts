@@ -1,8 +1,9 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { Component, ComponentProperties } from "../component.js";
-import { AllPaths, dumbDeepCopy } from "../../utils/utils.js";
+import { Component, ComponentProperties } from "../component/component.js";
+import { dumbDeepCopy } from "../../utils/utils.js";
 import { CanvasUtils } from "../../utils/canvasUtils.js";
 import { ComponentType } from "../../utils/enums.js";
+import { AllPaths } from "../../utils/interfaces.js";
 
 interface FontSettings {
   size: number;

@@ -1,6 +1,6 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { dumbDeepCopy, generateId } from "../utils/utils.js";
-import { EffectType } from "../utils/enums.js";
+import { dumbDeepCopy, generateId } from "../../utils/utils.js";
+import { EffectType } from "../../utils/enums.js";
 
 export interface EffectProperties {}
 
@@ -36,10 +36,10 @@ export abstract class Effect {
   public static typeToClass: any = undefined;
   public static async setTypeToClass() {
     Effect.typeToClass = {
-      [EffectType.BorderAnimation]: (await import("./borderAnimation/borderAnimation.js")).BorderAnimation,
-      [EffectType.Switch]: (await import("./switch/switch.js")).Switch,
-      [EffectType.Transition]: (await import("./transition/transition.js")).Transition,
-      [EffectType.Set]: (await import("./set/set.js")).Set,
+      [EffectType.BorderAnimation]: (await import("../borderAnimation/borderAnimation.js")).BorderAnimation,
+      [EffectType.Switch]: (await import("../switch/switch.js")).Switch,
+      [EffectType.Transition]: (await import("../transition/transition.js")).Transition,
+      [EffectType.Set]: (await import("../set/set.js")).Set,
     };
   }
 

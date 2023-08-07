@@ -1,8 +1,9 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { Effect } from "../effects/effect.js";
-import { AllPaths, dumbDeepCopy, generateId, setPropertyValue } from "../utils/utils.js";
-import { Color, Point } from "../utils/interfaces.js";
-import { ComponentType } from "../utils/enums.js";
+
+import { dumbDeepCopy, generateId, setPropertyValue } from "../../utils/utils";
+import { AllPaths, Color, Point } from "../../utils/interfaces";
+import { ComponentType } from "../../utils/enums";
+import { Effect } from "../../effects/effect/effect";
 
 export interface ComponentProperties {
   position: Point;
@@ -54,10 +55,10 @@ export abstract class Component {
   public static typeToClass: any = undefined;
   public static async setTypeToClass() {
     Component.typeToClass = {
-      [ComponentType.Rectangle]: (await import("./rectangle/rectangle.js")).Rectangle,
-      [ComponentType.RectangleBorder]: (await import("./rectangle/rectangleBorder.js")).RectangleBorder,
-      [ComponentType.Text]: (await import("./text/text.js")).Text,
-      [ComponentType.ProgressBar]: (await import("./progressBar/progressBar.js")).ProgressBar,
+      [ComponentType.Rectangle]: (await import("../rectangle/rectangle.js")).Rectangle,
+      [ComponentType.RectangleBorder]: (await import("../rectangle/rectangleBorder.js")).RectangleBorder,
+      [ComponentType.Text]: (await import("../text/text.js")).Text,
+      [ComponentType.ProgressBar]: (await import("../progressBar/progressBar.js")).ProgressBar,
     };
   }
 

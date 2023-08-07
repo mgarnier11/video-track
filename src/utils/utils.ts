@@ -25,12 +25,6 @@ export function setPropertyValue(object: any, propertyPath: string, value: any) 
   }
 }
 
-export type AllPaths<T> = T extends object
-  ? {
-      [K in keyof T]-?: K extends string ? (T[K] extends object ? `${K}` | `${K}.${AllPaths<T[K]>}` : `${K}`) : never;
-    }[keyof T]
-  : "";
-
 export function generateId() {
   //generate unique id based on timestamp
   const timestamp = Date.now().toString(36);
@@ -43,5 +37,3 @@ export function generateId() {
 
   return id;
 }
-
-export type PublicConstructor<T> = new () => T;

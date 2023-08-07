@@ -1,9 +1,9 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { AllPaths, dumbDeepCopy, setPropertyValue } from "../../utils/utils.js";
-import { Effect } from "../../effects/effect.js";
-import { Component, ComponentProperties } from "../component.js";
+import { dumbDeepCopy, setPropertyValue } from "../../utils/utils.js";
+import { Effect } from "../../effects/effect/effect.js";
+import { Component, ComponentProperties } from "../component/component.js";
 import { CanvasUtils } from "../../utils/canvasUtils.js";
-import { Corners, Size } from "../../utils/interfaces.js";
+import { AllPaths, Corners, Size } from "../../utils/interfaces.js";
 import { ComponentType } from "../../utils/enums.js";
 
 type RectangleBorderProperties = ComponentProperties & {

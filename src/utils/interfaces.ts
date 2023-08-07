@@ -41,3 +41,9 @@ interface Corners2 {
 }
 
 export type Corners = Corners4 | Corners2 | number;
+
+export type AllPaths<T> = T extends object
+  ? {
+      [K in keyof T]-?: K extends string ? (T[K] extends object ? `${K}` | `${K}.${AllPaths<T[K]>}` : `${K}`) : never;
+    }[keyof T]
+  : "";

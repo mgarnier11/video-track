@@ -1,12 +1,12 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { Effect } from "../../effects/effect.js";
-import { Component, ComponentProperties } from "../component.js";
-import { AllPaths, dumbDeepCopy, setPropertyValue } from "../../utils/utils.js";
+import { Effect } from "../../effects/effect/effect.js";
+import { Component, ComponentProperties } from "../component/component.js";
+import { dumbDeepCopy, setPropertyValue } from "../../utils/utils.js";
 import { Text } from "../text/text.js";
 import { RectangleBorder } from "../rectangle/rectangleBorder.js";
 import { BorderAnimation } from "../../effects/borderAnimation/borderAnimation.js";
 import { Transition } from "../../effects/transition/transition.js";
-import { Color, Corners, Size } from "../../utils/interfaces.js";
+import { AllPaths, Color, Corners, Size } from "../../utils/interfaces.js";
 import { ComponentType, TransitionType } from "../../utils/enums.js";
 import { Rectangle } from "../rectangle/rectangle.js";
 

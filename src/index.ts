@@ -1,5 +1,5 @@
-import { registerComponents } from "./components/component.js";
-import { registerEffects } from "./effects/effect.js";
+import { registerComponents } from "./components/component/component.js";
+import { registerEffects } from "./effects/effect/effect.js";
 
 export const initVideoTrackLib = async () => {
   await registerComponents();
