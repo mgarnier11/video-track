@@ -1,0 +1,23 @@
+{
+  "name": "video-track",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "shx rm -rf dist/ && tsc",
+    "start": "npm run compile && node dist/"
+  },
+  "keywords": [],
+  "author": "mgarnier11",
+  "license": "ISC",
+  "devDependencies": {
+    "shx": "^0.3.4",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "canvas": "^2.11.2"
+  }
+}
