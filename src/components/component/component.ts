@@ -1,9 +1,9 @@
 import { CanvasRenderingContext2D } from "canvas";
 
-import { dumbDeepCopy, generateId, setPropertyValue } from "../../utils/utils";
-import { AllPaths, Color, Point } from "../../utils/interfaces";
-import { ComponentType } from "../../utils/enums";
-import { Effect } from "../../effects/effect/effect";
+import { AllPaths, Color, Point } from "../../utils/interfaces.js";
+import { dumbDeepCopy, generateId, setPropertyValue } from "../../utils/utils.js";
+import { ComponentType } from "../../utils/enums.js";
+import { Effect } from "../../effects/effect/effect.js";
 
 export interface ComponentProperties {
   position: Point;
