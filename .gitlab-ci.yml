@@ -1,0 +1,62 @@
+image: node:18
+
+variables:
+  ARTIFACT_DOWNLOAD_ATTEMPTS: 2 # Number of retries for restoring saved artifacts.
+
+stages:
+  - prepare
+  - verify
+  - publish
+
+install:
+  stage: prepare
+  dependencies: []
+  artifacts:
+    name: "deps_$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    when: on_success
+    expire_in: 12h
+  script:
+    - npm install --no-progress --no-audit --no-fund --verbose
+  only:
+    - dev
+    - master
+
+test:
+  stage: verify
+  dependencies:
+    - install
+  script:
+    - npm run test
+  only:
+    - dev
+    - master
+
+publish:
+  stage: publish
+  dependencies:
+    - install
+  before_script:
+    - apt-get update && apt-get install -y git
+    - npm config set -- '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
+  script:
+    - npm version patch -m "Bump version to %s [skip ci]"
+    - npm publish --verbose
+  after_script:
+    - git config user.name "Mathieu GARNIER"
+    - git config user.email "mgarnier11@gmail.com"
+    - git remote remove origin
+    # - git pull "https://project_access_token_name:$PROJECT_VARIABLE_WITH_ACCESS_TOKEN_VALUE@$CI_SERVER_HOST/$CI_PROJECT_PATH.git" $CI_COMMIT_BRANCH --rebase --autostash
+    # - git commit -a -m "Message on your choice"
+    # - git push "https://project_access_token_name:$PROJECT_VARIABLE_WITH_ACCESS_TOKEN_VALUE@$CI_SERVER_HOST/$CI_PROJECT_PATH.git" HEAD:$CI_COMMIT_BRANCH
+    - git remote add origin "https://${CI_JOB_TOKEN}@gitlab.com/username/repo.git"
+    - git push origin HEAD:master
+  only:
+    - master
+  # rules:
+  #   - if: $CI_COMMIT_BRANCH == "master"
+  #     changes:
+  #       - src/**/*.ts
+  #       - package.json
+  #       - tsconfig.json
