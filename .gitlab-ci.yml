@@ -1,0 +1,58 @@
+image: node:16
+
+variables:
+  ARTIFACT_DOWNLOAD_ATTEMPTS: 2 # Number of retries for restoring saved artifacts.
+
+stages:
+  - prepare
+  - verify
+  - version
+  - publish
+
+install:
+  stage: prepare
+  dependencies: []
+  artifacts:
+    name: "deps_$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+    when: on_success
+    expire_in: 12h
+  script:
+    - npm install --no-progress --no-audit --no-fund --verbose
+  only:
+    - dev
+    - master
+
+test:
+  stage: verify
+  dependencies:
+    - install
+  script:
+    - npm run test
+  only:
+    - dev
+    - master
+
+version:
+  stage: version
+  dependencies:
+    - install
+  script:
+    - npm version patch -m "Bump version to %s [skip ci]"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - src/**/*.ts
+        - package.json
+        - tsconfig.json
+
+publish:
+  stage: publish
+  dependencies:
+    - install
+  script:
+    - npm config set -- '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
+    - npm publish --verbose
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v\d+.\d+.\d+/'
