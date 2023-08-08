@@ -45,13 +45,14 @@ publish:
   script:
     - npm version patch -m "Bump version to %s [skip ci]"
     - npm publish --verbose
+    - git remote add origin "https://oauth2:${CI_JOB_TOKEN}@gitlab.com/mgarnier11/video-track.git"
+    - git push origin HEAD:master
   after_script:
-    - git remote remove origin
+
     # - git pull "https://project_access_token_name:$PROJECT_VARIABLE_WITH_ACCESS_TOKEN_VALUE@$CI_SERVER_HOST/$CI_PROJECT_PATH.git" $CI_COMMIT_BRANCH --rebase --autostash
     # - git commit -a -m "Message on your choice"
     # - git push "https://project_access_token_name:$PROJECT_VARIABLE_WITH_ACCESS_TOKEN_VALUE@$CI_SERVER_HOST/$CI_PROJECT_PATH.git" HEAD:$CI_COMMIT_BRANCH
-    - git remote add origin "https://${CI_JOB_TOKEN}@gitlab.com/mgarnier11/video-track.git"
-    - git push origin HEAD:master
+
   only:
     - master
   # rules:
