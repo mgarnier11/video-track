@@ -1,5 +1,5 @@
 import { CanvasRenderingContext2D } from "canvas";
-import { dumbDeepCopy, generateId } from "../../utils/utils.js";
+import { dumbDeepCopy, generateId, setPropertyValue } from "../../utils/utils.js";
 import { EffectType } from "../../utils/enums.js";
 
 export interface EffectProperties {}
@@ -8,11 +8,7 @@ class Builder {
   protected builderProperties: EffectProperties = dumbDeepCopy(Effect.defaultEffectProperties);
 
   protected setProperty<T>(propertyPath: keyof T, value: any): this {
-    if (typeof value === "object") {
-      (this.builderProperties as any)[propertyPath] = dumbDeepCopy(value);
-    } else {
-      (this.builderProperties as any)[propertyPath] = value;
-    }
+    setPropertyValue(this.builderProperties, propertyPath as string, value);
 
     return this;
   }
