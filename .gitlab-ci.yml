@@ -45,6 +45,7 @@ publish:
   script:
     - npm version patch -m "Bump version to %s [skip ci]"
     - npm publish --verbose
+    - git remote remove origin
     - git remote add origin "https://oauth2:${CI_JOB_TOKEN}@gitlab.com/mgarnier11/video-track.git"
     - git push origin HEAD:master
   after_script:
