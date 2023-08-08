@@ -9,8 +9,7 @@
   "scripts": {
     "test": "jest",
     "compile": "shx rm -rf dist/ && tsc",
-    "start": "npm run compile && node dist/",
-    "prepublishOnly": "npm run compile"
+    "start": "npm run compile && node dist/"
   },
   "keywords": [],
   "author": "mgarnier11",
