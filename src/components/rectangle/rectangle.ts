@@ -27,6 +27,9 @@ const defaultRectangleProperties: RectangleProperties = {
 class Builder extends Component.Builder {
   builderProperties: RectangleProperties = dumbDeepCopy(defaultRectangleProperties);
 
+  public withBorderColor(color: Color): this {
+    return this.setProperty<RectangleProperties>("borderColor", color);
+  }
   public withBorderWidth(width: number): this {
     return this.setProperty<RectangleProperties>("borderWidth", width);
   }
