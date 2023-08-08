@@ -24,7 +24,7 @@ install:
     - dev
     - master
 
-test:
+unit-test:
   stage: verify
   interruptible: true
   dependencies:
@@ -35,19 +35,13 @@ test:
     - dev
     - master
 
-compile:
+integration-test:
   stage: verify
   interruptible: true
   dependencies:
     - install
-  artifacts:
-    name: "dist_$CI_COMMIT_REF_SLUG"
-    paths:
-      - dist/
-    when: on_success
-    expire_in: 12h
   script:
-    - npm run compile
+    - npm run test:integration
   only:
     - dev
     - master
@@ -56,7 +50,6 @@ publish:
   stage: publish
   dependencies:
     - install
-    - compile
   before_script:
     - apt-get update && apt-get install -y git
     - npm config set -- '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"

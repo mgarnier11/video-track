@@ -6,11 +6,11 @@ export enum TransitionType {
 }
 
 export enum EffectType {
-  Unknown = "Unknown",
-  BorderAnimation = "BorderAnimation",
-  Switch = "Switch",
-  Transition = "Transition",
-  Set = "Set",
+  Unknown = "unknown",
+  BorderAnimation = "borderAnimation",
+  Switch = "switch",
+  Transition = "transition",
+  Set = "set",
 }
 
 export enum ComponentType {

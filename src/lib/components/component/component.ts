@@ -157,11 +157,11 @@ export abstract class Component {
   }
 
   public draw(context: CanvasRenderingContext2D, frame: number, ...params: any) {
-    context.save();
-
     const updatedProperties = this.applyEffects(context, frame);
 
     if (updatedProperties.display) {
+      context.save();
+
       context.globalAlpha = updatedProperties.opacity;
 
       this.drawComponent(context, frame, updatedProperties, ...params);
@@ -171,9 +171,9 @@ export abstract class Component {
       for (const subComponent of this.subComponents.values()) {
         subComponent.draw(context, frame);
       }
-    }
 
-    context.restore();
+      context.restore();
+    }
   }
 
   protected getSubComponent<T extends Component>(name: string): T {
