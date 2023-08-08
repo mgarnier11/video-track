@@ -76,7 +76,7 @@ export class Rectangle extends Component {
           width: updatedProperties.size.width - updatedProperties.borderWidth,
           height: updatedProperties.size.height - updatedProperties.borderWidth,
         },
-        CanvasUtils.getColorString(updatedProperties.color),
+        CanvasUtils.getColorString(updatedProperties.borderColor),
         updatedProperties.corners,
         updatedProperties.borderWidth
       );
