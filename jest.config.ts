@@ -70,7 +70,7 @@ const config: Config = {
   // globals: {},
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-  // maxWorkers: "50%",
+  maxWorkers: "75%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -116,12 +116,10 @@ const config: Config = {
   restoreMocks: true,
 
   // The root directory that Jest should scan for tests and modules within
-  rootDir: "src",
+  // rootDir: "src",
 
   // A list of paths to directories that Jest should use to search for files in
-  // roots: [
-  //   "<rootDir>"
-  // ],
+  roots: ["src/lib"],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",

@@ -46,16 +46,27 @@ const defaultProgressBarProperties: ProgressBarProperties = {
   transitionType: TransitionType.EASE_IN_OUT,
 };
 
-// prettier-ignore
 class Builder extends Component.Builder {
   builderProperties: ProgressBarProperties = dumbDeepCopy(defaultProgressBarProperties);
-  
-  public withSize(size: Size): this { return this.setProperty<ProgressBarProperties>("size", size); }
-  public withStartFrame(startFrame: number): this { return this.setProperty<ProgressBarProperties>("startFrame", startFrame); }
-  public withEndFrame(endFrame: number): this { return this.setProperty<ProgressBarProperties>("endFrame", endFrame); }
-  public withProgressSettings(progressSettings: ProgressSettings): this { return this.setProperty<ProgressBarProperties>("progressSettings", progressSettings); }
-  public withBorderSettings(borderSettings: BorderSettings): this { return this.setProperty<ProgressBarProperties>("borderSettings", borderSettings); }
-  public withTransitionType(transitionType: TransitionType): this { return this.setProperty<ProgressBarProperties>("transitionType", transitionType); }
+
+  public withSize(size: Size): this {
+    return this.setProperty<ProgressBarProperties>("size", size);
+  }
+  public withStartFrame(startFrame: number): this {
+    return this.setProperty<ProgressBarProperties>("startFrame", startFrame);
+  }
+  public withEndFrame(endFrame: number): this {
+    return this.setProperty<ProgressBarProperties>("endFrame", endFrame);
+  }
+  public withProgressSettings(progressSettings: ProgressSettings): this {
+    return this.setProperty<ProgressBarProperties>("progressSettings", progressSettings);
+  }
+  public withBorderSettings(borderSettings: BorderSettings): this {
+    return this.setProperty<ProgressBarProperties>("borderSettings", borderSettings);
+  }
+  public withTransitionType(transitionType: TransitionType): this {
+    return this.setProperty<ProgressBarProperties>("transitionType", transitionType);
+  }
 
   public build(framerate: number) {
     const component = super.buildComponent<ProgressBar>(ComponentType.ProgressBar);
@@ -77,7 +88,7 @@ class Builder extends Component.Builder {
       .withEndFrame(this.builderProperties.endFrame)
       .withTransitionType(this.builderProperties.transitionType)
       .build();
-      
+
     component.setSpecialProperties({
       progressTransitionId: progressTransition.getId(),
     });

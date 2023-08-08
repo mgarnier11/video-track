@@ -2,14 +2,16 @@
   "name": "@mgarnier11/video-track",
   "version": "0.0.10",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": "./dist/index.js",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
+  "exports": "./dist/lib/index.js",
   "type": "module",
   "scripts": {
     "test": "jest",
+    "test:integration": "npm start -- noGen",
     "compile": "shx rm -rf dist/ && tsc",
-    "start": "npm run compile && node dist/"
+    "start": "npm run compile && node dist/test",
+    "prepublishOnly": "npm run compile"
   },
   "keywords": [],
   "author": "mgarnier11",
@@ -26,7 +28,8 @@
     "canvas": "^2.11.2"
   },
   "files": [
-    "dist",
+    "dist/lib/**/*.d.ts",
+    "dist/lib/**/*.js",
     "readme.md",
     "package.json"
   ]
