@@ -94,7 +94,11 @@ describe("Component", () => {
     });
   });
 
-  describe("Component", () => {});
+  describe("Component", () => {
+    it("shoudl return true", () => {
+      expect(true).toEqual(true);
+    });
+  });
 
   describe("registerComponents", () => {
     it("should register the components", async () => {
