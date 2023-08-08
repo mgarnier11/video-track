@@ -33,6 +33,16 @@ test:
     - dev
     - master
 
+compile:
+  stage: verify
+  dependencies:
+    - install
+  script:
+    - npm run compile
+  only:
+    - dev
+    - master
+
 publish:
   stage: publish
   dependencies:

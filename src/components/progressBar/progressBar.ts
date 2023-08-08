@@ -3,7 +3,6 @@ import { Effect } from "../../effects/effect/effect.js";
 import { Component, ComponentProperties } from "../component/component.js";
 import { dumbDeepCopy, setPropertyValue } from "../../utils/utils.js";
 import { Text } from "../text/text.js";
-import { RectangleBorder } from "../rectangle/rectangleBorder.js";
 import { BorderAnimation } from "../../effects/borderAnimation/borderAnimation.js";
 import { Transition } from "../../effects/transition/transition.js";
 import { AllPaths, Color, Corners, Size } from "../../utils/interfaces.js";
@@ -85,12 +84,13 @@ class Builder extends Component.Builder {
 
     component.addSubComponent(
       "border",
-      new RectangleBorder.Builder()
+      new Rectangle.Builder()
         .withPosition({ x: 0, y: 0 })
         .withSize({ width: 0, height: 0 })
-        .withWidth(this.builderProperties.borderSettings.width)
-        .withColor(this.builderProperties.borderSettings.color)
+        .withBorderWidth(this.builderProperties.borderSettings.width)
+        .withBorderColor(this.builderProperties.borderSettings.color)
         .withCorners(this.builderProperties.borderSettings.corners)
+        .borderOnly()
         .build()
     );
     component.addSubComponent(
@@ -101,6 +101,7 @@ class Builder extends Component.Builder {
         .withColor(this.builderProperties.color)
         .withCorners(this.builderProperties.progressSettings.corners)
         .withEffects([progressTransition])
+        .fillOnly()
         .build()
     );
 
@@ -133,10 +134,10 @@ export class ProgressBar extends Component {
     frame: number,
     updatedProperties: ProgressBarProperties
   ) {
-    const border = this.getSubComponent<RectangleBorder>("border");
+    const border = this.getSubComponent<Rectangle>("border");
     border.setProperty("size", updatedProperties.size);
-    border.setProperty("color", updatedProperties.borderSettings.color);
-    border.setProperty("width", updatedProperties.borderSettings.width);
+    border.setProperty("borderColor", updatedProperties.borderSettings.color);
+    border.setProperty("borderWidth", updatedProperties.borderSettings.width);
     border.setProperty("corners", updatedProperties.borderSettings.corners);
 
     const progress = this.getSubComponent<Rectangle>("progress");
