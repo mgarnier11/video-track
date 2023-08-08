@@ -103,9 +103,6 @@ describe("Component", () => {
   describe("registerComponents", () => {
     it("should register the components", async () => {
       jest.mock("../rectangle/rectangle.js", () => ({ Rectangle: "rectangle" }));
-      jest.mock("../rectangle/rectangleBorder.js", () => ({
-        RectangleBorder: "rectangleBorder",
-      }));
       jest.mock("../text/text.js", () => ({ Text: "text" }));
       jest.mock("../progressBar/progressBar.js", () => ({ ProgressBar: "progressBar" }));
 
@@ -113,7 +110,6 @@ describe("Component", () => {
 
       expect(Component.typeToClass).toEqual({
         [ComponentType.Rectangle]: "rectangle",
-        [ComponentType.RectangleBorder]: "rectangleBorder",
         [ComponentType.Text]: "text",
         [ComponentType.ProgressBar]: "progressBar",
       });

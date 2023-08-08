@@ -12,7 +12,6 @@ export interface ComponentProperties {
   opacity: number;
 }
 
-// prettier-ignore
 class Builder {
   protected type: ComponentType = ComponentType.Unknown;
   protected builderProperties: ComponentProperties = dumbDeepCopy(Component.defaultComponentProperties);
@@ -24,15 +23,23 @@ class Builder {
     return this;
   }
 
-  public withPosition(position: Point): this { return this.setProperty<ComponentProperties>("position", position); }
-  public withDisplay(display: boolean): this { return this.setProperty<ComponentProperties>("display", display); }
-  public withColor(color: Color): this { return this.setProperty<ComponentProperties>("color", color); }
-  public withOpacity(opacity: number): this { return this.setProperty<ComponentProperties>("opacity", opacity); }
+  public withPosition(position: Point): this {
+    return this.setProperty<ComponentProperties>("position", position);
+  }
+  public withDisplay(display: boolean): this {
+    return this.setProperty<ComponentProperties>("display", display);
+  }
+  public withColor(color: Color): this {
+    return this.setProperty<ComponentProperties>("color", color);
+  }
+  public withOpacity(opacity: number): this {
+    return this.setProperty<ComponentProperties>("opacity", opacity);
+  }
   public withEffects(effects: Effect[]): this {
     this.effects = effects;
     return this;
   }
-  
+
   protected buildComponent<T extends Component>(type: ComponentType): T {
     const ComponentClass = Component.typeToClass[type];
 
@@ -56,7 +63,6 @@ export abstract class Component {
   public static async setTypeToClass() {
     Component.typeToClass = {
       [ComponentType.Rectangle]: (await import("../rectangle/rectangle.js")).Rectangle,
-      [ComponentType.RectangleBorder]: (await import("../rectangle/rectangleBorder.js")).RectangleBorder,
       [ComponentType.Text]: (await import("../text/text.js")).Text,
       [ComponentType.ProgressBar]: (await import("../progressBar/progressBar.js")).ProgressBar,
     };
