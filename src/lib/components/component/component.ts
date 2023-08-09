@@ -75,8 +75,12 @@ export abstract class Component {
     opacity: 1,
   };
 
-  protected id: string = generateId();
+  protected id: string;
   public getId = (): string => this.id;
+
+  constructor() {
+    this.id = generateId();
+  }
 
   protected type: ComponentType = ComponentType.Unknown;
   protected effects: Effect[] = [];

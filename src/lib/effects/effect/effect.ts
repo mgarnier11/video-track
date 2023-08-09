@@ -42,8 +42,12 @@ export abstract class Effect {
   public static defaultEffectProperties: EffectProperties = {};
   protected properties: EffectProperties = dumbDeepCopy(Effect.defaultEffectProperties);
   protected type: EffectType = EffectType.Unknown;
-  protected id: string = generateId();
+  protected id: string;
   public getId = (): string => this.id;
+
+  constructor() {
+    this.id = generateId();
+  }
 
   public abstract apply(context: CanvasRenderingContext2D, actualFrame: number, properties: any): any;
 

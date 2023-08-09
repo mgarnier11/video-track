@@ -23,15 +23,22 @@ const defaultTextProperties: TextProperties = {
   text: "",
 };
 
-// prettier-ignore
 class Builder extends Component.Builder {
   builderProperties: TextProperties = dumbDeepCopy(defaultTextProperties);
 
-  public withTextAlign(textAlign: CanvasTextAlign): this { return this.setProperty<TextProperties>("textAlign", textAlign); }
-  public withFontSettings(fontSettings: FontSettings): this { return this.setProperty<TextProperties>("fontSettings", fontSettings); }
-  public withText(text: string): this { return this.setProperty<TextProperties>("text", text); }
-  
-  public build(): Text { return super.buildComponent(ComponentType.Text); }
+  public withTextAlign(textAlign: CanvasTextAlign): this {
+    return this.setProperty<TextProperties>("textAlign", textAlign);
+  }
+  public withFontSettings(fontSettings: FontSettings): this {
+    return this.setProperty<TextProperties>("fontSettings", fontSettings);
+  }
+  public withText(text: string): this {
+    return this.setProperty<TextProperties>("text", text);
+  }
+
+  public build(): Text {
+    return super.buildComponent(ComponentType.Text);
+  }
 }
 
 export class Text extends Component {
