@@ -1,6 +1,6 @@
 import { registerEffects } from "../../effects/effect/effect";
 import { ComponentType } from "../../utils/enums";
-import { registerComponents } from "../component/component";
+import { Component, registerComponents } from "../component/component";
 import { Text } from "./text";
 
 describe("Text", () => {
@@ -44,11 +44,84 @@ describe("Text", () => {
 
     describe("build", () => {
       it("call the super method builderComponent", () => {
-        const spy = jest.spyOn(Text.Builder.prototype as any, "buildComponent");
+        const spy = jest.spyOn(Component.Builder.prototype as any, "buildComponent");
 
         builder.build();
 
         expect(spy).toHaveBeenCalledWith(ComponentType.Text);
+      });
+    });
+  });
+
+  describe("Text", () => {
+    describe("drawComponent", () => {
+      it("draws the text from the properties", () => {
+        const text = new Text.Builder().build();
+
+        const updatedProperties = {
+          color: "red",
+          display: true,
+          opacity: 1,
+          position: { x: 25, y: 40 },
+          textAlign: "center" as CanvasTextAlign,
+          fontSettings: { size: 100, family: "Arial" },
+          text: "test",
+        };
+
+        const context = {
+          fillText: jest.fn(),
+        } as any;
+
+        text.drawComponent(context, 0, updatedProperties);
+
+        expect(context.fillText).toHaveBeenCalledWith(
+          updatedProperties.text,
+          updatedProperties.position.x,
+          updatedProperties.position.y
+        );
+        expect(context.font).toEqual("100px Arial");
+        expect(context.fillStyle).toEqual("red");
+        expect(context.textAlign).toEqual("center");
+      });
+
+      it("draws the text from the parameter", () => {
+        const text = new Text.Builder().build();
+
+        const updatedProperties = {
+          color: "red",
+          display: true,
+          opacity: 1,
+          position: { x: 25, y: 40 },
+          textAlign: "center" as CanvasTextAlign,
+          fontSettings: { size: 100, family: "Arial" },
+          text: "test",
+        };
+
+        const context = {
+          fillText: jest.fn(),
+        } as any;
+
+        text.drawComponent(context, 0, updatedProperties, "test2");
+
+        expect(context.fillText).toHaveBeenCalledWith(
+          "test2",
+          updatedProperties.position.x,
+          updatedProperties.position.y
+        );
+        expect(context.font).toEqual("100px Arial");
+        expect(context.fillStyle).toEqual("red");
+        expect(context.textAlign).toEqual("center");
+      });
+    });
+
+    describe("setProperty", () => {
+      it("call the super method setProperty", () => {
+        const text = new Text.Builder().build();
+        const spy = jest.spyOn(Component.prototype as any, "setProperty");
+
+        text.setProperty("textAlign", "center");
+
+        expect(spy).toHaveBeenCalledWith("textAlign", "center");
       });
     });
   });

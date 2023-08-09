@@ -47,10 +47,6 @@ export class Text extends Component {
   protected type = ComponentType.Text;
   protected override properties: TextProperties = dumbDeepCopy(defaultTextProperties);
 
-  public override draw(context: CanvasRenderingContext2D, frame: number, text: string) {
-    super.draw(context, frame, text);
-  }
-
   public override drawComponent(
     context: CanvasRenderingContext2D,
     frame: number,

@@ -1,6 +1,7 @@
 import { registerEffects } from "../../effects/effect/effect";
+import { CanvasUtils } from "../../utils/canvasUtils";
 import { ComponentType } from "../../utils/enums";
-import { registerComponents } from "../component/component";
+import { Component, registerComponents } from "../component/component";
 import { Rectangle } from "./rectangle";
 
 describe("Rectangle", () => {
@@ -85,11 +86,131 @@ describe("Rectangle", () => {
 
     describe("build", () => {
       it("call the super method builderComponent", () => {
-        const spy = jest.spyOn(Rectangle.Builder.prototype as any, "buildComponent");
+        const spy = jest.spyOn(Component.Builder.prototype as any, "buildComponent");
 
         builder.build();
 
         expect(spy).toHaveBeenCalledWith(ComponentType.Rectangle);
+      });
+    });
+  });
+
+  describe("Rectangle", () => {
+    describe("drawComponent", () => {
+      const updatedProperties = {
+        color: "red",
+        display: true,
+        opacity: 1,
+        position: { x: 25, y: 40 },
+        borderColor: "red",
+        borderWidth: 20,
+        size: { width: 100, height: 200 },
+        corners: 10,
+        fill: false,
+        border: false,
+      };
+
+      it("with fill only", () => {
+        const rectangle = new Rectangle.Builder().build();
+
+        updatedProperties.fill = true;
+        updatedProperties.border = false;
+
+        const context: any = {};
+
+        const getColorStringSpy = jest.spyOn(CanvasUtils, "getColorString");
+        const drawRoundedRectangleSpy = jest.spyOn(CanvasUtils, "drawRoundedRectangle").mockImplementation(() => {});
+        const drawRoundedRectangleBorderSpy = jest
+          .spyOn(CanvasUtils, "drawRoundedRectangleBorder")
+          .mockImplementation(() => {});
+
+        rectangle.drawComponent(context, 0, updatedProperties);
+
+        expect(getColorStringSpy).toHaveBeenCalledWith("red");
+        expect(getColorStringSpy).toHaveBeenCalledTimes(1);
+        expect(drawRoundedRectangleSpy).toHaveBeenCalledWith(
+          context,
+          { x: 25, y: 40 },
+          { width: 100, height: 200 },
+          "red",
+          10
+        );
+        expect(drawRoundedRectangleBorderSpy).not.toHaveBeenCalled();
+      });
+
+      it("with border only", () => {
+        const rectangle = new Rectangle.Builder().build();
+
+        updatedProperties.fill = false;
+        updatedProperties.border = true;
+
+        const context: any = {};
+
+        const getColorStringSpy = jest.spyOn(CanvasUtils, "getColorString");
+        const drawRoundedRectangleSpy = jest.spyOn(CanvasUtils, "drawRoundedRectangle").mockImplementation(() => {});
+        const drawRoundedRectangleBorderSpy = jest
+          .spyOn(CanvasUtils, "drawRoundedRectangleBorder")
+          .mockImplementation(() => {});
+
+        rectangle.drawComponent(context, 0, updatedProperties);
+
+        expect(getColorStringSpy).toHaveBeenCalledWith("red");
+        expect(getColorStringSpy).toHaveBeenCalledTimes(1);
+        expect(drawRoundedRectangleSpy).not.toHaveBeenCalled();
+        expect(drawRoundedRectangleBorderSpy).toHaveBeenCalledWith(
+          context,
+          { x: 35, y: 50 },
+          { width: 80, height: 180 },
+          "red",
+          10,
+          20
+        );
+      });
+
+      it("with fill and border", () => {
+        const rectangle = new Rectangle.Builder().build();
+
+        updatedProperties.fill = true;
+        updatedProperties.border = true;
+
+        const context: any = {};
+
+        const getColorStringSpy = jest.spyOn(CanvasUtils, "getColorString");
+        const drawRoundedRectangleSpy = jest.spyOn(CanvasUtils, "drawRoundedRectangle").mockImplementation(() => {});
+        const drawRoundedRectangleBorderSpy = jest
+          .spyOn(CanvasUtils, "drawRoundedRectangleBorder")
+          .mockImplementation(() => {});
+
+        rectangle.drawComponent(context, 0, updatedProperties);
+
+        expect(getColorStringSpy).toHaveBeenCalledWith("red");
+        expect(getColorStringSpy).toHaveBeenCalledTimes(2);
+        expect(drawRoundedRectangleSpy).toHaveBeenCalledWith(
+          context,
+          { x: 25, y: 40 },
+          { width: 100, height: 200 },
+          "red",
+          10
+        );
+        expect(drawRoundedRectangleBorderSpy).toHaveBeenCalledWith(
+          context,
+          { x: 35, y: 50 },
+          { width: 80, height: 180 },
+          "red",
+          10,
+          20
+        );
+      });
+    });
+
+    describe("setProperty", () => {
+      it("call the super method setProperty", () => {
+        const text = new Rectangle.Builder().build();
+        const spy = jest.spyOn(Component.prototype as any, "setProperty");
+
+        text.setProperty("borderWidth", 0);
+
+        expect(spy).toHaveBeenCalledWith("borderWidth", 0);
       });
     });
   });
