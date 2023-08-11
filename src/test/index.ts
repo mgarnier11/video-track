@@ -32,48 +32,51 @@ const progressBar = new ProgressBar.Builder()
   .withEndFrame((countDownStart + countDownDuration) * framerate)
   .build(framerate);
 
-for (let frame = 1; frame <= totalFrames; frame++) {
-  const canvas = new Canvas(1920, 1080, "svg");
-  const context = canvas.getContext("2d");
+// for (let frame = 1; frame <= totalFrames; frame++) {
+//   const canvas = new Canvas(1920, 1080, "svg");
+//   const context = canvas.getContext("2d");
 
-  context.fillStyle = "#ffffff";
-  context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+//   context.fillStyle = "#ffffff";
+//   context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-  progressBar.draw(context, frame);
+//   progressBar.draw(context, frame);
 
-  const paddedNumber = String(frame).padStart(6, "0");
-  const imageFileName = `frame-${paddedNumber}.svg`;
+//   const paddedNumber = String(frame).padStart(6, "0");
+//   const imageFileName = `frame-${paddedNumber}.svg`;
 
-  // fs.writeFileSync(`${outDir}/${imageFileName}`, canvas.toBuffer());
-}
-
-console.log("Generated svg files");
-
-// const json = JSON.stringify(progressBar.toJSON());
-
-// const sharedBuffer = new SharedArrayBuffer(Buffer.byteLength(json));
-// const sharedArray = new Uint8Array(sharedBuffer);
-// sharedArray.set(Buffer.from(json));
-
-// const workers = [];
-
-// const nbWorker = 8;
-// const framesPerWorker = Math.ceil(totalFrames / nbWorker);
-
-// const dirName = path.dirname(new URL(import.meta.url).pathname).substring(1);
-// const workerPath = path.join(dirName, "worker.js");
-
-// for (let i = 0; i < nbWorker; i++) {
-//   workers.push(
-//     new Worker(workerPath, { workerData: { sharedBuffer, nbFrames: framesPerWorker, outDir, workerNb: i } })
-//   );
+//   fs.writeFileSync(`${outDir}/${imageFileName}`, canvas.toBuffer());
 // }
 
-// workers.forEach((worker, i) => {
-//   worker.on("message", (msg) => {
-//     console.log(`Worker ${i} : ${msg}`);
-//   });
-// });
+// console.log("Generated svg files");
+
+const json = JSON.stringify(progressBar.toJSON());
+
+console.log(json);
+
+const sharedBuffer = new SharedArrayBuffer(Buffer.byteLength(json));
+const sharedArray = new Uint8Array(sharedBuffer);
+
+sharedArray.set(Buffer.from(json));
+
+const workers = [];
+
+const nbWorker = 8;
+const framesPerWorker = Math.ceil(totalFrames / nbWorker);
+
+const dirName = path.dirname(new URL(import.meta.url).pathname);
+const workerPath = path.join(dirName, "worker.js");
+
+for (let i = 0; i < nbWorker; i++) {
+  workers.push(
+    new Worker(workerPath, { workerData: { sharedBuffer, nbFrames: framesPerWorker, outDir, workerNb: i } })
+  );
+}
+
+workers.forEach((worker, i) => {
+  worker.on("message", ({ type, message }) => {
+    console.log(`Worker ${i} : ${message}`);
+  });
+});
 
 // const nbWorker = 8;
 

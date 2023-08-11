@@ -1,4 +1,4 @@
-import { workerData } from "node:worker_threads";
+import { workerData, parentPort } from "node:worker_threads";
 import fs from "fs";
 import { ProgressBar, initVideoTrackLib } from "../lib/index.js";
 import { Canvas } from "canvas";
@@ -17,12 +17,18 @@ const {
 console.log("Hello from worker", workerNb);
 
 const sharedArray = new Uint8Array(sharedBuffer);
-const json = sharedArray.toString();
+
+const json = String.fromCharCode(...sharedArray);
+
 const obj = JSON.parse(json);
 
 const progressBar = ProgressBar.fromJSON(obj);
 
-for (let frame = 0; frame < (workerNb + 1) * nbFrames; frame++) {
+const postMessage = (message: string) => {
+  parentPort!.postMessage({ type: "message", message });
+};
+
+for (let frame = workerNb * nbFrames; frame < (workerNb + 1) * nbFrames; frame++) {
   const canvas = new Canvas(1920, 1080);
   const context = canvas.getContext("2d");
 
@@ -33,14 +39,14 @@ for (let frame = 0; frame < (workerNb + 1) * nbFrames; frame++) {
 
   const output = canvas.toBuffer("image/png");
 
-  console.log(`Generated frame ${frame}`);
+  postMessage(`Generated frame ${frame}`);
 
   const paddedNumber = String(frame).padStart(6, "0");
   const imageFileName = `frame-${paddedNumber}.png`;
 
   fs.writeFileSync(`${outDir}/${imageFileName}`, output);
 
-  console.log(`Wrote file ${imageFileName}`);
+  postMessage(`Wrote file ${imageFileName}`);
 }
 
 postMessage("done");

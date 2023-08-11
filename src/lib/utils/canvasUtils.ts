@@ -10,22 +10,22 @@ export class CanvasUtils {
     height: number,
     corners?: Corners
   ): void {
-    if (corners !== undefined) {
-      if (typeof corners === "number") {
-        context.roundRect(x, y, width, height, [corners]);
-      } else if (corners.type === "corners2") {
-        context.roundRect(x, y, width, height, [corners.topLeft, corners.topRight]);
-      } else if (corners.type === "corners4") {
-        context.roundRect(x, y, width, height, [
-          corners.topLeft,
-          corners.topRight,
-          corners.bottomRight,
-          corners.bottomLeft,
-        ]);
-      }
-    } else {
-      context.rect(x, y, width, height);
-    }
+    // if (corners !== undefined) {
+    //   if (typeof corners === "number") {
+    //     context.roundRect(x, y, width, height, [corners]);
+    //   } else if (corners.type === "corners2") {
+    //     context.roundRect(x, y, width, height, [corners.topLeft, corners.topRight]);
+    //   } else if (corners.type === "corners4") {
+    //     context.roundRect(x, y, width, height, [
+    //       corners.topLeft,
+    //       corners.topRight,
+    //       corners.bottomRight,
+    //       corners.bottomLeft,
+    //     ]);
+    //   }
+    // } else {
+    context.rect(x, y, width, height);
+    // }
   }
 
   public static drawRoundedRectangle(
