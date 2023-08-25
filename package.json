@@ -32,6 +32,6 @@
     "package.json"
   ],
   "dependencies": {
-    "@mgarnier11/my-canvas": "^1.0.0"
+    "@mgarnier11/my-canvas": "1.0.3"
   }
 }
