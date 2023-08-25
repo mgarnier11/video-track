@@ -27,7 +27,9 @@ if (!noGen) {
 const progressBar = new ProgressBar.Builder()
   .withColor("#000000")
   .withSize({ height: 100, width: 1000 })
+  .withProgressSettings({ corners: 10, offset: { height: 5, width: 5 } })
   .withPosition({ x: 1920 / 2 - 1000 / 2, y: 1080 / 2 - 100 / 2 })
+  .withBorderSettings({ corners: 10, width: 10, color: "#000000" })
   .withStartFrame(countDownStart * framerate)
   .withEndFrame((countDownStart + countDownDuration) * framerate)
   .build(framerate);
