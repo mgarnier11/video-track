@@ -1,6 +1,6 @@
 import { Worker } from "node:worker_threads";
 
-import { Canvas } from "canvas";
+import { Canvas } from "@mgarnier11/my-canvas";
 import fs from "fs";
 import path from "path";
 import { ProgressBar, initVideoTrackLib } from "../lib/index.js";

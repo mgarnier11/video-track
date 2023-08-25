@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Effect } from "../../effects/effect/effect";
 import { ComponentType } from "../../utils/enums";
 import * as utils from "../../utils/utils";

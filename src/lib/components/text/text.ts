@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Component, ComponentProperties } from "../component/component.js";
 import { dumbDeepCopy } from "../../utils/utils.js";
 import { CanvasUtils } from "../../utils/canvasUtils.js";

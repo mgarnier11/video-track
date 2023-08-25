@@ -1,7 +1,7 @@
 import { workerData, parentPort } from "node:worker_threads";
 import fs from "fs";
 import { ProgressBar, initVideoTrackLib } from "../lib/index.js";
-import { Canvas } from "canvas";
+import { Canvas } from "@mgarnier11/my-canvas";
 
 const timeout = (to: number) => new Promise((resolve) => setTimeout(resolve, to));
 

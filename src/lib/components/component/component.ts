@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 
 import { AllPaths, Color, Point } from "../../utils/interfaces.js";
 import { dumbDeepCopy, generateId, setPropertyValue } from "../../utils/utils.js";

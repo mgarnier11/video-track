@@ -25,11 +25,13 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   },
-  "dependencies": {},
   "files": [
     "dist/lib/**/*.d.ts",
     "dist/lib/**/*.js",
     "readme.md",
     "package.json"
-  ]
+  ],
+  "dependencies": {
+    "@mgarnier11/my-canvas": "^1.0.0"
+  }
 }

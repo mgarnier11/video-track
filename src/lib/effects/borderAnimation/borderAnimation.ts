@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Effect, EffectProperties } from "../effect/effect.js";
 import { dumbDeepCopy, getPropertyValue } from "../../utils/utils.js";
 import { CanvasUtils } from "../../utils/canvasUtils.js";
