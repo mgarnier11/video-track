@@ -6,6 +6,7 @@ export const initVideoTrackLib = async () => {
   await registerEffects();
 };
 
+export * from "./videoTrack/videoTrack.js";
 export * from "./components/index.js";
 export * from "./effects/index.js";
 

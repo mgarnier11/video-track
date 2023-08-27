@@ -47,3 +47,11 @@ export type AllPaths<T> = T extends object
       [K in keyof T]-?: K extends string ? (T[K] extends object ? `${K}` | `${K}.${AllPaths<T[K]>}` : `${K}`) : never;
     }[keyof T]
   : "";
+
+export interface WorkerData {
+  startFrame: number;
+  endFrame: number;
+  sharedBuffer: SharedArrayBuffer;
+  outDir: string;
+  workerNb: number;
+}
