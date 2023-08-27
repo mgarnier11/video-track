@@ -13,7 +13,7 @@ describe("VideoTrack", () => {
       const originalFs = jest.requireActual("fs");
       return {
         ...originalFs,
-        writeFileSync: jest.fn(originalFs.writeFileSync),
+        writeFileSync: jest.fn(),
       };
     });
 
@@ -202,49 +202,49 @@ describe("VideoTrack", () => {
       });
     });
 
-    describe("generateFramesSync", () => {
-      it("should call drawFrame", async () => {
-        const videoTrack: any = new VideoTrack.Builder().withDuration(10).withFramerate(1).build();
+    // describe("generateFramesSync", () => {
+    //   it("should call drawFrame", async () => {
+    //     const videoTrack: any = new VideoTrack.Builder().withDuration(10).withFramerate(1).build();
 
-        const drawFrameSpy = jest.spyOn(videoTrack, "drawFrame").mockImplementation(() => {});
-        const progressCallback = jest.fn();
+    //     const drawFrameSpy = jest.spyOn(videoTrack, "drawFrame").mockImplementation(() => {});
+    //     const progressCallback = jest.fn();
 
-        const result = await videoTrack.generateFramesSync("test", progressCallback);
+    //     const result = await videoTrack.generateFramesSync("test", progressCallback);
 
-        expect(drawFrameSpy).toHaveBeenCalledTimes(10);
-        expect(progressCallback).toHaveBeenCalledTimes(10);
-        expect(fs.writeFileSync).toHaveBeenCalledTimes(10);
-        expect(result).toBe(true);
-      });
-    });
+    //     expect(drawFrameSpy).toHaveBeenCalledTimes(10);
+    //     expect(progressCallback).toHaveBeenCalledTimes(10);
+    //     expect(fs.writeFileSync).toHaveBeenCalledTimes(10);
+    //     expect(result).toBe(true);
+    //   });
+    // });
 
-    fdescribe("generateFramesAsync", () => {
-      it("should generate new workers", async () => {
-        const videoTrack: any = new VideoTrack.Builder().withDuration(10).withFramerate(1).build();
-        const json = JSON.stringify(videoTrack.toJSON());
+    // fdescribe("generateFramesAsync", () => {
+    //   it("should generate new workers", async () => {
+    //     const videoTrack: any = new VideoTrack.Builder().withDuration(10).withFramerate(1).build();
+    //     const json = JSON.stringify(videoTrack.toJSON());
 
-        const sharedBuffer = new SharedArrayBuffer(Buffer.byteLength(json));
-        new Uint8Array(sharedBuffer).set(Buffer.from(json));
+    //     const sharedBuffer = new SharedArrayBuffer(Buffer.byteLength(json));
+    //     new Uint8Array(sharedBuffer).set(Buffer.from(json));
 
-        const progressCallback = jest.fn();
-        const fileURLToPathSpy = jest.spyOn(require("url"), "fileURLToPath").mockImplementation(() => "test");
+    //     const progressCallback = jest.fn();
+    //     const fileURLToPathSpy = jest.spyOn(require("url"), "fileURLToPath").mockImplementation(() => "test");
 
-        const result = videoTrack.generateFramesAsync("test", 1, progressCallback);
+    //     const result = videoTrack.generateFramesAsync("test", 1, progressCallback);
 
-        // expect(Worker).toHaveBeenCalledTimes(4);
-        expect(Worker).toHaveBeenCalledWith([
-          "test/videoTrackWorker.js",
-          {
-            workerData: {
-              sharedBuffer,
-              outputPath: "test",
-              startFrame: 0,
-              endFrame: 10,
-              workerNb: 0,
-            },
-          },
-        ]);
-      });
-    });
+    //     // expect(Worker).toHaveBeenCalledTimes(4);
+    //     expect(Worker).toHaveBeenCalledWith([
+    //       "test/videoTrackWorker.js",
+    //       {
+    //         workerData: {
+    //           sharedBuffer,
+    //           outputPath: "test",
+    //           startFrame: 0,
+    //           endFrame: 10,
+    //           workerNb: 0,
+    //         },
+    //       },
+    //     ]);
+    //   });
+    // });
   });
 });

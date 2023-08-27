@@ -40,3 +40,34 @@ await videoTrack.generateFrames(outDir, 8, (frame, nbFrames) => {
   console.log(`Frame ${frame} / ${nbFrames} : ${((frame / nbFrames) * 100).toFixed(2)}%`);
 });
 console.timeEnd("generateFrames");
+
+//compare all frames generated to the expected frames
+const expectedFramesDir = path.join(fileURLToPath(import.meta.url), "../../../expected");
+const expectedFrames = fs.readdirSync(expectedFramesDir);
+
+const generatedFrames = fs.readdirSync(outDir);
+
+if (expectedFrames.length !== generatedFrames.length) {
+  console.log("Different number of frames generated");
+  process.exit(1);
+} else {
+  console.log("Same number of frames generated");
+}
+
+for (let i = 0; i < expectedFrames.length; i++) {
+  const expectedFrame = expectedFrames[i];
+  const generatedFrame = generatedFrames[i];
+
+  const expectedFramePath = path.join(expectedFramesDir, expectedFrame);
+  const generatedFramePath = path.join(outDir, generatedFrame);
+
+  const expectedFrameBuffer = fs.readFileSync(expectedFramePath);
+  const generatedFrameBuffer = fs.readFileSync(generatedFramePath);
+
+  if (!expectedFrameBuffer.equals(generatedFrameBuffer)) {
+    console.log(`Frame ${i} is different`);
+    process.exit(1);
+  } else {
+    console.log(`Frame ${i} is identical`);
+  }
+}
