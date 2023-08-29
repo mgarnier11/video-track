@@ -160,7 +160,7 @@ export abstract class Component {
     return properties;
   }
 
-  public draw(context: CanvasRenderingContext2D, frame: number, ...params: any) {
+  public async draw(context: CanvasRenderingContext2D, frame: number, ...params: any) {
     const updatedProperties = this.applyEffects(context, frame);
 
     if (updatedProperties.display) {
@@ -168,12 +168,12 @@ export abstract class Component {
 
       context.globalAlpha = updatedProperties.opacity;
 
-      this.drawComponent(context, frame, updatedProperties, ...params);
+      await this.drawComponent(context, frame, updatedProperties, ...params);
 
       context.translate(updatedProperties.position.x, updatedProperties.position.y);
 
       for (const subComponent of this.subComponents.values()) {
-        subComponent.draw(context, frame);
+        await subComponent.draw(context, frame);
       }
 
       context.restore();
@@ -193,7 +193,7 @@ export abstract class Component {
     frame: number,
     updatedProperties: any,
     ...params: any
-  ): void;
+  ): Promise<void>;
 }
 
 export const registerComponents = async () => {

@@ -76,7 +76,7 @@ class Builder extends Component.Builder {
       new BorderAnimation.Builder()
         .withStartFrame(this.builderProperties.endFrame)
         .withEndFrame(this.builderProperties.endFrame + framerate * 0.25)
-        .withBorderDelay(2) //has to be indexed to the framerate
+        .withBorderDelay(2) //has to be somehow indexed to the framerate
         .withNbBorders(3)
         .build(),
     ]);
@@ -140,7 +140,7 @@ export class ProgressBar extends Component {
     this.progressTransitionId = json.progressTransitionId;
   }
 
-  public override drawComponent(
+  public override async drawComponent(
     context: CanvasRenderingContext2D,
     frame: number,
     updatedProperties: ProgressBarProperties

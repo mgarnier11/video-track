@@ -128,7 +128,7 @@ export class VideoTrack {
       const paddedNumber = String(frame).padStart(6, "0");
       const imageFileName = `frame-${paddedNumber}.png`;
 
-      const output = this.drawFrame(frame);
+      const output = await this.drawFrame(frame);
 
       fs.writeFileSync(`${outputPath}/${imageFileName}`, output);
 
@@ -182,6 +182,7 @@ export class VideoTrack {
           });
 
           worker.on("exit", (code) => {
+            console.log(`Worker ${i} exited with code ${code}`);
             res();
           });
         });
@@ -192,6 +193,7 @@ export class VideoTrack {
 
       Promise.all(promises)
         .then(() => {
+          console.log("All workers finished");
           resolve(true);
         })
         .catch((err) => {
@@ -200,14 +202,16 @@ export class VideoTrack {
     });
   }
 
-  public drawFrame(frame: number): Buffer {
+  public async drawFrame(frame: number): Promise<Buffer> {
     const canvas = new Canvas(this.properties.width, this.properties.height);
     const context = canvas.getContext("2d");
 
     context.fillStyle = CanvasUtils.getColorString(this.properties.backgroundColor);
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-    this.components.forEach((component) => component.draw(context, frame));
+    for (const component of this.components) {
+      await component.draw(context, frame);
+    }
 
     return canvas.toBuffer("image/png");
   }

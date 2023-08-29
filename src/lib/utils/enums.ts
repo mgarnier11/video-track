@@ -19,4 +19,5 @@ export enum ComponentType {
   RectangleBorder = "rectangleBorder",
   Text = "text",
   ProgressBar = "progressBar",
+  HTML = "html",
 }

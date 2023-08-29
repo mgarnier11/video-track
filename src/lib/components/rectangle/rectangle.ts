@@ -60,7 +60,7 @@ export class Rectangle extends Component {
   protected type = ComponentType.Rectangle;
   protected override properties: RectangleProperties = dumbDeepCopy(defaultRectangleProperties);
 
-  public override drawComponent(
+  public override async drawComponent(
     context: CanvasRenderingContext2D,
     frame: number,
     updatedProperties: RectangleProperties

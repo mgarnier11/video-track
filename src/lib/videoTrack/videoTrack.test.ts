@@ -164,12 +164,12 @@ describe("VideoTrack", () => {
         expect(spy).toHaveBeenCalledWith("test", null);
       });
 
-      it("should call generateFramesAsync", () => {
+      it("should call generateFramesAsync", async () => {
         const videoTrack: any = new VideoTrack.Builder().build();
 
         const spy = jest.spyOn(videoTrack, "generateFramesAsync").mockImplementation(() => {});
 
-        videoTrack.generateFrames("test", 1, null);
+        await videoTrack.generateFrames("test", 1, null);
 
         expect(spy).toHaveBeenCalledWith("test", 1, null);
       });
@@ -282,7 +282,7 @@ describe("VideoTrack", () => {
     });
 
     describe("drawFrame", () => {
-      it("should return the correct frame", () => {
+      it("should return the correct frame", async () => {
         const drawFn = jest.fn();
         const canvasConstructor = jest.fn();
         const contextFillRect = jest.fn();
@@ -307,7 +307,7 @@ describe("VideoTrack", () => {
           .withComponents([{ draw: drawFn }, { draw: drawFn }, { draw: drawFn }] as any)
           .build();
 
-        const frame = videoTrack.drawFrame(0);
+        const frame = await videoTrack.drawFrame(0);
 
         expect(canvasConstructor).toHaveBeenCalledWith(1920, 1080);
         expect(canvasGetContext).toHaveBeenCalledWith("2d");

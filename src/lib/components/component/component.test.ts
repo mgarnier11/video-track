@@ -108,7 +108,9 @@ describe("Component", () => {
         frame: number,
         updatedProperties: any,
         ...params: any
-      ): void {}
+      ): Promise<void> {
+        return new Promise((res) => res());
+      }
     }
 
     let component: any;
@@ -298,7 +300,7 @@ describe("Component", () => {
     });
 
     describe("draw", () => {
-      it("should apply the effects and draw the components and its subcomponents", () => {
+      it("should apply the effects and draw the components and its subcomponents", async () => {
         const applyFn = (context: any, frame: number, properties: any) => {
           return {
             ...properties,
@@ -326,7 +328,7 @@ describe("Component", () => {
         const contextRestoreSpy = jest.spyOn(context, "restore").mockImplementation(() => {});
         const contextTranslateSpy = jest.spyOn(context, "translate").mockImplementation(() => {});
 
-        component.draw(context, 10);
+        await component.draw(context, 10);
 
         expect(effect1.apply).toHaveBeenCalledWith(context, 10, {
           position: { x: 10, y: 10 },

@@ -47,7 +47,7 @@ export class Text extends Component {
   protected type = ComponentType.Text;
   protected override properties: TextProperties = dumbDeepCopy(defaultTextProperties);
 
-  public override drawComponent(
+  public override async drawComponent(
     context: CanvasRenderingContext2D,
     frame: number,
     updatedProperties: TextProperties,
