@@ -33,6 +33,7 @@
     "package.json"
   ],
   "dependencies": {
-    "@mgarnier11/my-canvas": "1.0.3"
+    "@mgarnier11/my-canvas": "1.0.3",
+    "bezier-easing": "^2.1.0"
   }
 }

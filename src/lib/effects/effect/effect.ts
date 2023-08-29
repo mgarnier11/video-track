@@ -49,7 +49,7 @@ export abstract class Effect {
     this.id = generateId();
   }
 
-  public abstract apply(context: CanvasRenderingContext2D, actualFrame: number, properties: any): any;
+  public abstract apply(context: CanvasRenderingContext2D, actualFrame: number, componentProperties: any): any;
 
   public setProperties(properties: EffectProperties) {
     this.properties = dumbDeepCopy(properties);

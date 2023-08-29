@@ -18,6 +18,14 @@ const config: Config = {
       statements: 95,
     },
   },
+  collectCoverageFrom: ["src/lib/**/*.{ts,tsx}"],
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/lib/index.ts",
+    "<rootDir>/src/lib/effects/index.ts",
+    "<rootDir>/src/lib/components/index.ts",
+    "<rootDir>/src/lib/utils/interfaces.ts",
+    "<rootDir>/src/lib/videoTrack/videoTrackWorker.ts",
+  ],
   maxWorkers: "75%",
   moduleNameMapper: {
     "^(\\.\\.?\\/.+)\\.js$": "$1",

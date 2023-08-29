@@ -15,15 +15,22 @@ const defaultSetProperties: SetProperties = {
   value: null,
 };
 
-// prettier-ignore
 class Builder extends Effect.Builder {
   builderProperties: SetProperties = dumbDeepCopy(defaultSetProperties);
 
-  public withProperty(property: string): this { return this.setProperty<SetProperties>("property", property); }
-  public withFrameToSet(frameToSet: number): this { return this.setProperty<SetProperties>("frameToSet", frameToSet); }
-  public withValue(value: any): this { return this.setProperty<SetProperties>("value", value); }
+  public withProperty(property: string): this {
+    return this.setProperty<SetProperties>("property", property);
+  }
+  public withFrameToSet(frameToSet: number): this {
+    return this.setProperty<SetProperties>("frameToSet", frameToSet);
+  }
+  public withValue(value: any): this {
+    return this.setProperty<SetProperties>("value", value);
+  }
 
-  public build(): Set { return this.buildEffect<Set>(EffectType.Set); }
+  public build(): Set {
+    return this.buildEffect<Set>(EffectType.Set);
+  }
 }
 
 export class Set extends Effect {

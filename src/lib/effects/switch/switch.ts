@@ -13,14 +13,19 @@ const defaultSwitchProperties: SwitchProperties = {
   framesToSwitch: [],
 };
 
-// prettier-ignore
 class Builder extends Effect.Builder {
   builderProperties: SwitchProperties = dumbDeepCopy(defaultSwitchProperties);
 
-  public withProperty(property: string): this { return this.setProperty<SwitchProperties>("property", property); }
-  public withFramesToSwitch(framesToSwitch: number[]): this { return this.setProperty<SwitchProperties>("framesToSwitch", framesToSwitch); }
+  public withProperty(property: string): this {
+    return this.setProperty<SwitchProperties>("property", property);
+  }
+  public withFramesToSwitch(framesToSwitch: number[]): this {
+    return this.setProperty<SwitchProperties>("framesToSwitch", framesToSwitch);
+  }
 
-  public build(): Switch { return this.buildEffect<Switch>(EffectType.Switch); }
+  public build(): Switch {
+    return this.buildEffect<Switch>(EffectType.Switch);
+  }
 }
 
 export class Switch extends Effect {

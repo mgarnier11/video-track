@@ -5,11 +5,11 @@ import { Component, registerComponents } from "../component/component";
 import { ProgressBar } from "./progressBar";
 import * as utils from "../../utils/utils";
 import { generateId } from "../../utils/utils";
+import { initVideoTrackLib } from "../..";
 
 describe("ProgressBar", () => {
   beforeAll(async () => {
-    await registerComponents();
-    await registerEffects();
+    await initVideoTrackLib();
   });
 
   describe("ProgressBar.Builder", () => {

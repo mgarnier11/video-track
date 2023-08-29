@@ -1,3 +1,4 @@
+import { initVideoTrackLib } from "../..";
 import { registerEffects } from "../../effects/effect/effect";
 import { CanvasUtils } from "../../utils/canvasUtils";
 import { ComponentType } from "../../utils/enums";
@@ -6,8 +7,7 @@ import { Rectangle } from "./rectangle";
 
 describe("Rectangle", () => {
   beforeAll(async () => {
-    await registerComponents();
-    await registerEffects();
+    await initVideoTrackLib();
   });
 
   describe("Rectangle.Builder", () => {

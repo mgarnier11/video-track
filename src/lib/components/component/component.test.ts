@@ -121,6 +121,14 @@ describe("Component", () => {
       component = new ComponentTest.Builder().build();
     });
 
+    describe("getId", () => {
+      it("should return the id", () => {
+        component.id = "test";
+
+        expect(component.getId()).toEqual("test");
+      });
+    });
+
     describe("toJSON", () => {
       it("should return the json", () => {
         const subComponent1: any = new ComponentTest.Builder().build();

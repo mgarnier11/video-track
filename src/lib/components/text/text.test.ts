@@ -1,3 +1,4 @@
+import { initVideoTrackLib } from "../..";
 import { registerEffects } from "../../effects/effect/effect";
 import { ComponentType } from "../../utils/enums";
 import { Component, registerComponents } from "../component/component";
@@ -5,8 +6,7 @@ import { Text } from "./text";
 
 describe("Text", () => {
   beforeAll(async () => {
-    await registerComponents();
-    await registerEffects();
+    await initVideoTrackLib();
   });
 
   describe("Text.Builder", () => {

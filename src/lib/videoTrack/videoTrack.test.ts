@@ -8,6 +8,7 @@ import path from "path";
 import canvas from "@mgarnier11/my-canvas";
 import { EventEmitter } from "events";
 import { VideoTrack } from "./videoTrack";
+import { initVideoTrackLib } from "..";
 
 jest.mock("fs");
 jest.mock("worker_threads");
@@ -19,8 +20,7 @@ jest.mock("@mgarnier11/my-canvas", () => ({
 
 describe("VideoTrack", () => {
   beforeAll(async () => {
-    await registerComponents();
-    await registerEffects();
+    await initVideoTrackLib();
   });
 
   describe("VideoTrack.Builder", () => {
