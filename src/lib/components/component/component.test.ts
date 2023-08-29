@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Effect } from "../../effects/effect/effect";
 import { ComponentType } from "../../utils/enums";
 import * as utils from "../../utils/utils";
@@ -119,6 +119,14 @@ describe("Component", () => {
       };
 
       component = new ComponentTest.Builder().build();
+    });
+
+    describe("getId", () => {
+      it("should return the id", () => {
+        component.id = "test";
+
+        expect(component.getId()).toEqual("test");
+      });
     });
 
     describe("toJSON", () => {

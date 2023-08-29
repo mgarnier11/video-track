@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Effect, EffectProperties } from "../effect/effect.js";
 import { dumbDeepCopy, getPropertyValue, setPropertyValue } from "../../utils/utils.js";
 import { EffectType } from "../../utils/enums.js";
@@ -13,14 +13,19 @@ const defaultSwitchProperties: SwitchProperties = {
   framesToSwitch: [],
 };
 
-// prettier-ignore
 class Builder extends Effect.Builder {
   builderProperties: SwitchProperties = dumbDeepCopy(defaultSwitchProperties);
 
-  public withProperty(property: string): this { return this.setProperty<SwitchProperties>("property", property); }
-  public withFramesToSwitch(framesToSwitch: number[]): this { return this.setProperty<SwitchProperties>("framesToSwitch", framesToSwitch); }
+  public withProperty(property: string): this {
+    return this.setProperty<SwitchProperties>("property", property);
+  }
+  public withFramesToSwitch(framesToSwitch: number[]): this {
+    return this.setProperty<SwitchProperties>("framesToSwitch", framesToSwitch);
+  }
 
-  public build(): Switch { return this.buildEffect<Switch>(EffectType.Switch); }
+  public build(): Switch {
+    return this.buildEffect<Switch>(EffectType.Switch);
+  }
 }
 
 export class Switch extends Effect {

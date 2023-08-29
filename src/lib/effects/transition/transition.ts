@@ -1,7 +1,8 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { dumbDeepCopy, getPropertyValue, setPropertyValue } from "../../utils/utils.js";
 import { Effect, EffectProperties } from "../effect/effect.js";
 import { EffectType, TransitionType } from "../../utils/enums.js";
+import bezier from "bezier-easing";
 
 type TransitionProperties = EffectProperties & {
   property: string;
@@ -19,18 +20,28 @@ const defaultTransitionProperties: TransitionProperties = {
   transitionType: TransitionType.LINEAR,
 };
 
-// prettier-ignore
 class Builder extends Effect.Builder {
   builderProperties: TransitionProperties = dumbDeepCopy(defaultTransitionProperties);
 
-  public withProperty(property: string): this { return this.setProperty<TransitionProperties>("property", property); }
-  public withEndValue(endValue: number): this { return this.setProperty<TransitionProperties>("endValue", endValue); }
-  public withStartFrame(startFrame: number): this { return this.setProperty<TransitionProperties>("startFrame", startFrame); }
-  public withEndFrame(endFrame: number): this { return this.setProperty<TransitionProperties>("endFrame", endFrame); }
-  public withTransitionType(transitionType: TransitionType): this { return this.setProperty<TransitionProperties>("transitionType", transitionType); }
+  public withProperty(property: string): this {
+    return this.setProperty<TransitionProperties>("property", property);
+  }
+  public withEndValue(endValue: number): this {
+    return this.setProperty<TransitionProperties>("endValue", endValue);
+  }
+  public withStartFrame(startFrame: number): this {
+    return this.setProperty<TransitionProperties>("startFrame", startFrame);
+  }
+  public withEndFrame(endFrame: number): this {
+    return this.setProperty<TransitionProperties>("endFrame", endFrame);
+  }
+  public withTransitionType(transitionType: TransitionType): this {
+    return this.setProperty<TransitionProperties>("transitionType", transitionType);
+  }
 
-  public build(): Transition { return this.buildEffect<Transition>(EffectType.Transition); }
-  
+  public build(): Transition {
+    return this.buildEffect<Transition>(EffectType.Transition);
+  }
 }
 
 export class Transition extends Effect {
@@ -54,14 +65,16 @@ export class Transition extends Effect {
 
     let progress = 0;
 
+    const i = (actualFrame - startFrame) / (endFrame - startFrame);
+
     if (transitionType === TransitionType.LINEAR) {
-      progress = (actualFrame - startFrame) / (endFrame - startFrame);
+      progress = i;
     } else if (transitionType === TransitionType.EASE_IN) {
-      progress = Math.pow((actualFrame - startFrame) / (endFrame - startFrame), 2);
+      progress = bezier(0.42, 0, 1, 1)(i);
     } else if (transitionType === TransitionType.EASE_OUT) {
-      progress = 1 - Math.pow(1 - (actualFrame - startFrame) / (endFrame - startFrame), 2);
+      progress = bezier(0, 0, 0.58, 1)(i);
     } else if (transitionType === TransitionType.EASE_IN_OUT) {
-      progress = 0.5 - 0.5 * Math.cos((Math.PI * (actualFrame - startFrame)) / (endFrame - startFrame));
+      progress = bezier(0.42, 0, 0.58, 1)(i);
     }
 
     setPropertyValue(

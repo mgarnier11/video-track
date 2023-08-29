@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Effect, EffectProperties } from "../effect/effect.js";
 import { dumbDeepCopy, getPropertyValue } from "../../utils/utils.js";
 import { CanvasUtils } from "../../utils/canvasUtils.js";
@@ -18,16 +18,25 @@ const defaultBorderAnimationProperties: BorderAnimationProperties = {
   nbBorders: 0,
 };
 
-// prettier-ignore
 class Builder extends Effect.Builder {
   builderProperties: BorderAnimationProperties = dumbDeepCopy(defaultBorderAnimationProperties);
 
-  public withStartFrame(startFrame: number): this { return this.setProperty<BorderAnimationProperties>("startFrame", startFrame); }
-  public withEndFrame(endFrame: number): this { return this.setProperty<BorderAnimationProperties>("endFrame", endFrame); }
-  public withBorderDelay(borderDelay: number): this { return this.setProperty<BorderAnimationProperties>("borderDelay", borderDelay); }
-  public withNbBorders(nbBorders: number): this { return this.setProperty<BorderAnimationProperties>("nbBorders", nbBorders); }
+  public withStartFrame(startFrame: number): this {
+    return this.setProperty<BorderAnimationProperties>("startFrame", startFrame);
+  }
+  public withEndFrame(endFrame: number): this {
+    return this.setProperty<BorderAnimationProperties>("endFrame", endFrame);
+  }
+  public withBorderDelay(borderDelay: number): this {
+    return this.setProperty<BorderAnimationProperties>("borderDelay", borderDelay);
+  }
+  public withNbBorders(nbBorders: number): this {
+    return this.setProperty<BorderAnimationProperties>("nbBorders", nbBorders);
+  }
 
-  public build(): BorderAnimation { return this.buildEffect<BorderAnimation>(EffectType.BorderAnimation); }
+  public build(): BorderAnimation {
+    return this.buildEffect<BorderAnimation>(EffectType.BorderAnimation);
+  }
 }
 
 export class BorderAnimation extends Effect {
@@ -35,13 +44,14 @@ export class BorderAnimation extends Effect {
   protected type = EffectType.BorderAnimation;
   protected override properties: BorderAnimationProperties = dumbDeepCopy(defaultBorderAnimationProperties);
 
-  public override apply(context: CanvasRenderingContext2D, actualFrame: number, properties: any): void {
+  public override apply(context: CanvasRenderingContext2D, actualFrame: number, componentProperties: any): void {
     const startFrame = this.properties.startFrame;
     const endFrame = this.properties.endFrame;
 
     if (actualFrame >= startFrame && actualFrame < endFrame) {
-      const componentSize = getPropertyValue(properties, "size");
-      const borderSettings = getPropertyValue(properties, "borderSettings");
+      const componentSize = getPropertyValue(componentProperties, "size");
+      const componentBorderSettings = getPropertyValue(componentProperties, "borderSettings");
+      const componentPosition = getPropertyValue(componentProperties, "position");
       const animationDuration = endFrame - startFrame;
       const borderDelay = this.properties.borderDelay;
       const nbBorders = this.properties.nbBorders;
@@ -54,21 +64,21 @@ export class BorderAnimation extends Effect {
 
           context.globalAlpha = 1 - frameDiff / borderDuration;
 
-          const offset = frameDiff * (borderSettings.width * 0.75);
+          const offset = frameDiff * (componentBorderSettings.width * 0.75);
 
           CanvasUtils.drawRoundedRectangleBorder(
             context,
             {
-              x: properties.position.x + borderSettings.width / 2 - offset,
-              y: properties.position.y + borderSettings.width / 2 - offset,
+              x: componentPosition.x + componentBorderSettings.width / 2 - offset,
+              y: componentPosition.y + componentBorderSettings.width / 2 - offset,
             },
             {
-              height: componentSize.height - borderSettings.width + offset * 2,
-              width: componentSize.width - borderSettings.width + offset * 2,
+              height: componentSize.height - componentBorderSettings.width + offset * 2,
+              width: componentSize.width - componentBorderSettings.width + offset * 2,
             },
-            CanvasUtils.getColorString(borderSettings.color),
-            borderSettings.corners,
-            borderSettings.width * 0.75
+            CanvasUtils.getColorString(componentBorderSettings.color),
+            componentBorderSettings.corners,
+            componentBorderSettings.width * 0.75
           );
 
           context.restore();
@@ -76,6 +86,6 @@ export class BorderAnimation extends Effect {
       }
     }
 
-    return properties;
+    return componentProperties;
   }
 }

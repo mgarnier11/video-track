@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { dumbDeepCopy, generateId, setPropertyValue } from "../../utils/utils.js";
 import { EffectType } from "../../utils/enums.js";
 
@@ -42,10 +42,14 @@ export abstract class Effect {
   public static defaultEffectProperties: EffectProperties = {};
   protected properties: EffectProperties = dumbDeepCopy(Effect.defaultEffectProperties);
   protected type: EffectType = EffectType.Unknown;
-  protected id: string = generateId();
+  protected id: string;
   public getId = (): string => this.id;
 
-  public abstract apply(context: CanvasRenderingContext2D, actualFrame: number, properties: any): any;
+  constructor() {
+    this.id = generateId();
+  }
+
+  public abstract apply(context: CanvasRenderingContext2D, actualFrame: number, componentProperties: any): any;
 
   public setProperties(properties: EffectProperties) {
     this.properties = dumbDeepCopy(properties);

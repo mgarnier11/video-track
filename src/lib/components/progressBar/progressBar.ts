@@ -1,7 +1,7 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Effect } from "../../effects/effect/effect.js";
 import { Component, ComponentProperties } from "../component/component.js";
-import { dumbDeepCopy, setPropertyValue } from "../../utils/utils.js";
+import { dumbDeepCopy, generateId, setPropertyValue } from "../../utils/utils.js";
 import { Text } from "../text/text.js";
 import { BorderAnimation } from "../../effects/borderAnimation/borderAnimation.js";
 import { Transition } from "../../effects/transition/transition.js";

@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Color, Corners, Point, Size } from "./interfaces.js";
 
 export class CanvasUtils {

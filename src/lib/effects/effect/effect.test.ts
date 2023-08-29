@@ -1,7 +1,7 @@
 import { EffectType } from "../../utils/enums";
 import { Effect, registerEffects } from "./effect";
 import * as utils from "../../utils/utils";
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 
 describe("Effect", () => {
   describe("Effect.Builder", () => {

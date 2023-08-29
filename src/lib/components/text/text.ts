@@ -1,4 +1,4 @@
-import { CanvasRenderingContext2D } from "canvas";
+import { CanvasRenderingContext2D } from "@mgarnier11/my-canvas";
 import { Component, ComponentProperties } from "../component/component.js";
 import { dumbDeepCopy } from "../../utils/utils.js";
 import { CanvasUtils } from "../../utils/canvasUtils.js";
@@ -23,15 +23,22 @@ const defaultTextProperties: TextProperties = {
   text: "",
 };
 
-// prettier-ignore
 class Builder extends Component.Builder {
   builderProperties: TextProperties = dumbDeepCopy(defaultTextProperties);
 
-  public withTextAlign(textAlign: CanvasTextAlign): this { return this.setProperty<TextProperties>("textAlign", textAlign); }
-  public withFontSettings(fontSettings: FontSettings): this { return this.setProperty<TextProperties>("fontSettings", fontSettings); }
-  public withText(text: string): this { return this.setProperty<TextProperties>("text", text); }
-  
-  public build(): Text { return super.buildComponent(ComponentType.Text); }
+  public withTextAlign(textAlign: CanvasTextAlign): this {
+    return this.setProperty<TextProperties>("textAlign", textAlign);
+  }
+  public withFontSettings(fontSettings: FontSettings): this {
+    return this.setProperty<TextProperties>("fontSettings", fontSettings);
+  }
+  public withText(text: string): this {
+    return this.setProperty<TextProperties>("text", text);
+  }
+
+  public build(): Text {
+    return super.buildComponent(ComponentType.Text);
+  }
 }
 
 export class Text extends Component {
@@ -39,10 +46,6 @@ export class Text extends Component {
 
   protected type = ComponentType.Text;
   protected override properties: TextProperties = dumbDeepCopy(defaultTextProperties);
-
-  public override draw(context: CanvasRenderingContext2D, frame: number, text: string) {
-    super.draw(context, frame, text);
-  }
 
   public override drawComponent(
     context: CanvasRenderingContext2D,
